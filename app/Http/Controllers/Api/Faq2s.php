@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;T
+use Illuminate\Http\Request;
+use App\Models\Faq2;
 
 class Faq2s extends Controller
 {

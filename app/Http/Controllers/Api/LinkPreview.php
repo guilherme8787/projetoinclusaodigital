@@ -11,6 +11,21 @@ class LinkPreview extends Controller
 {
 
     public function fileGetByUrl($url){
+
+        $http = false;
+        $https = false;
+
+        if(str_contains($url, 'http://')){
+            $http = true;
+        }
+        if(str_contains($url, 'https://')){
+            $https = true;
+        }
+
+        if($http == false && $https == false){
+            $url = 'https://'.$url;
+        }
+
         $arrContextOptions = array(
             "ssl"=>array(
                 "verify_peer"=>false,
@@ -22,19 +37,27 @@ class LinkPreview extends Controller
         ); 
         return file_get_contents($url, false, stream_context_create($arrContextOptions));
     }
+
+    public function getSiteInfo($url){
+        $previewClient = new Client($url);
+        $previews = $previewClient->getPreviews();
+        $preview = $previewClient->getPreview('general');
+        return $preview->toArray();
+    }
+
     public function get(Request $request){ 
 
         if($request->filled('url')){
 
             $url_de_busca = null;
             $url_de_opcao = null;
-            $url_explodido = explode('https://', $request->get('url'));
+            $url_explodido = explode(';', $request->get('url'));
             foreach($url_explodido as $url){
                 if(str_contains($url, 'play.google.com')){
-                    $url_de_busca = 'https://'.$url;
+                    $url_de_busca = $url;
                 } else {
                     if(!empty($url)){
-                        $url_de_opcao = 'https://'.$url;
+                        $url_de_opcao = $url;
                     }
                 }
             }
@@ -54,71 +77,68 @@ class LinkPreview extends Controller
             if(str_contains($url, 'wikipedia')){
                 $url_request = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Wikipedia-logo-v2-pt.svg/892px-Wikipedia-logo-v2-pt.svg.png';
             }
-
             if(str_contains($url, 'youtube')){
                 if(!str_contains($url, 'youtube.kids')){
                     $url_request = 'https://inclusaodigitalnasescolas.com.br/storage/img/youtube.png';
                 }
             }
-
             if(str_contains($url, 'pixabay')){
                 $url_request = 'https://cdn.pixabay.com/photo/2017/01/17/14/44/pixabay-1987090_1280.png';
             }
 
-
-            $thumbArray = Thumb::where('url', $url_request)->get()->toArray();
-            if($thumbArray == null){
-                $previewClient = new Client($url_request);
-                $previews = $previewClient->getPreviews();
-                $preview = $previewClient->getPreview('general');
-                $preview = $preview->toArray();
+ 
+            if($preview = $this->getSiteInfo($url_request)){
                 if(empty($preview['cover'])){
                     if(is_array($preview['images'])){
                         if(isset($preview['images'][0])){
-                            $contents = $this->fileGetByUrl($preview['images'][0]);
+                            $contents = $preview['images'][0];
                         } else {
                             $contents = false;
                         }
                     } else {
                         if(isset($preview['images'])){
-                            $contents = $this->fileGetByUrl($preview['images']);
+                            $contents = $preview['images'];
                         } else {
                             $contents = false;
                         }
                     }
                 } else {
                     if(isset($preview['cover'])){
-                        $contents = $this->fileGetByUrl($preview['cover']);
+                        $contents = $preview['cover'];
                     } else {
                         $contents = false;
                     }
                 }
-                if($contents == false){
-                    $contents = $this->fileGetByUrl('https://inclusaodigitalnasescolas.com.br/storage/img/nothuhmbpng.png');
-                } else {
-                    Thumb::insert([
-                        'url' => $url_request,
-                        'file_contents' => bin2hex($contents)
-                    ]);
-                }
-                $expires = 14 * 60*60*24;
-                header("Content-Type: image/jpeg");
-                header("Content-Length: " . strlen($contents));
-                header("Cache-Control: public", true);
-                header("Pragma: public", true);
-                header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT', true);
-                echo $contents;
-                exit;
             } else {
-                $contents = hex2bin($thumbArray[0]['file_contents']);
-                $expires = 14 * 60*60*24;
-                header("Content-Type: image/jpeg");
-                header("Content-Length: " . strlen($contents));
-                header("Cache-Control: public", true);
-                header("Pragma: public", true);
-                header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT', true);
-                echo $contents;
+                $contents = false;
             }
+
+            if($contents == false){
+                $contents = 'https://inclusaodigitalnasescolas.com.br/storage/img/nothuhmbpng.png';
+            }
+
+            if(str_contains($url, 'http://')){
+                $contents = 'https://inclusaodigitalnasescolas.com.br/storage/img/nothuhmbpng.png';
+            }
+
+            if(!str_contains($url, 'http://') && !str_contains($url, 'https://')){
+                $contents = 'https://inclusaodigitalnasescolas.com.br/storage/img/nothuhmbpng.png';
+            }
+
+            if(str_contains($url, 'wikipedia')){
+                $contents = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Wikipedia-logo-v2-pt.svg/892px-Wikipedia-logo-v2-pt.svg.png';
+            }
+            if(str_contains($url, 'youtube')){
+                if(!str_contains($url, 'youtube.kids')){
+                    $contents = 'https://inclusaodigitalnasescolas.com.br/storage/img/youtube.png';
+                }
+            }
+            if(str_contains($url, 'pixabay')){
+                $contents = 'https://cdn.pixabay.com/photo/2017/01/17/14/44/pixabay-1987090_1280.png';
+            }
+
+            return response()->json(['img' => $contents]);
+
         } else {
             return response()->json(['404']);
         }

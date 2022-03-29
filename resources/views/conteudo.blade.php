@@ -15,7 +15,7 @@
     </div>
     <div style="width: 500px; height: 500px;" v-if="loading">
     </div>
-    <div class="mb-4" style="max-width: 830px; margin: 0 auto;" v-for="paginas in pagina" v-html="paginas.conteudo">
+    <div class="mb-4" style="max-width: 830px; margin: 0 auto;" v-for="paginas in pagina" v-html="paginas.content">
     </div>
 </div>
 

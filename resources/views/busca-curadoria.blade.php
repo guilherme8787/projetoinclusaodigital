@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-sm-12 col-md-4 col-lg-4 col-xs-4">
           <a class="btn" style="width: 100%; margin-bottom: 5px; color: white; border-radius: 0; background-color: #f73358;">Ciclo</a>
-          <div class="mb-3">
+          <div class="mb-3" style="height: 100px;overflow-y: scroll;">
               <div class="form-check" v-for="ciclo in ciclos">
                 <input v-on:click="queryMount('ciclo', ciclo.ciclo)" class="form-check-input" type="checkbox">
                 <label class="form-check-label" for="disabledFieldsetCheck">
@@ -25,7 +25,7 @@
         </div>
         <div class="col-sm-12 col-md-4 col-lg-4 col-xs-4">
           <a class="btn" style="width: 100%; margin-bottom: 5px; color: white; border-radius: 0; background-color: #4ea79b;">Categoria</a>
-          <div class="mb-3">
+          <div class="mb-3" style="height: 100px;overflow-y: scroll;">
             <div class="form-check" v-for="categoria in categorias">
               <input v-on:click="queryMount('categoria', categoria.categoria)" class="form-check-input" type="checkbox">
               <label class="form-check-label" for="disabledFieldsetCheck">
@@ -36,7 +36,7 @@
         </div>
         <div class="col-sm-12 col-md-4 col-lg-4 col-xs-4">
           <a class="btn" style="width: 100%; margin-bottom: 5px; color: white; border-radius: 0; background-color: #14B0F5;">Disciplina</a>
-          <div class="mb-3">
+          <div class="mb-3" style="height: 100px;overflow-y: scroll;">
             <div class="form-check" v-for="disciplina in disciplinas">
               <input v-on:click="queryMount('disciplina', disciplina.disciplina)" class="form-check-input" type="checkbox">
               <label class="form-check-label" for="disabledFieldsetCheck">
@@ -62,18 +62,20 @@
     <div class="row">
       <div class="col-sm-12 col-md-4 col-lg-4 col-xs-4" v-for="conteudo in conteudos">
 
-          <div class="card" style="border: 0;">
-              <img v-bind:src="getCoverLink(conteudo.link)" class="card-img-top" style="width: 400px; height: 200px; object-fit: cover; object-position: 100% 0;">
+          <div class="card" style="margin-top: 30px; border: 0;">
+              <img src="https://inclusaodigitalnasescolas.com.br/storage/img/nothuhmbpng.png" v-on:load="getCoverLink('img'+conteudo.id, conteudo.link)" v-bind:id="'img'+conteudo.id" class="card-img-top img-fluid" style="width: 400px; height: 200px; object-fit: cover;">
               <div class="card-body text-center">
                   <div style="margin-bottom: 10px;">
-                      <span class="badge bg-success">@{{ conteudo.categoria.substring(0,25) }}</span>
-                      <span class="badge bg-danger">@{{ conteudo.ciclo.substring(0,25) }}</span>
-                      <span class="badge bg-warning text-dark">@{{ conteudo.disciplina.substring(0,25) }}</span>
-                      <span class="badge bg-info text-dark">@{{ conteudo.tipo.substring(0,25) }}</span>
+                      <span class="badge bg-success" v-bind:title="conteudo.categoria">@{{ textoBonito(conteudo.categoria) }}</span>
+                      <span class="badge bg-danger" v-bind:title="conteudo.ciclo">@{{ textoBonito(conteudo.ciclo) }}</span>
+                      <span class="badge bg-warning text-dark" v-bind:title="conteudo.disciplina">@{{ textoBonito(conteudo.disciplina) }}</span>
+                      <span class="badge bg-info text-dark" v-bind:title="conteudo.tipo">@{{ textoBonito(conteudo.tipo) }}</span>
                   </div>
                   <h5 class="card-title">@{{ conteudo.titulo }}</h5>
                   <p class="card-text">@{{ conteudo.descricao.substring(0,80) + '...' }}</p>
-                  <a v-bind:href="conteudo.link" class="btn" style="color: white;background-color: #f73358;" target="_BLANK">Ler mais</a>
+                  <div v-html="getLink(conteudo.link)" style="margin-bottom: 8px;">
+
+                  </div>
               </div>
           </div>
 
@@ -124,6 +126,15 @@
             maiusculo: function (a) {
                 return a.toUpperCase();
             },
+            textoBonito: function (a) {
+              if(a != null){
+                if(a.length > 25){
+                  return a.substring(0,25)+'...';
+                } else {
+                  return a;
+                }
+              }
+            },
             queryMount: function (field, value) {
               var queryString = '&'+field+'='+value;
               if(this.queryString != '' && this.queryString.includes(queryString)){
@@ -145,8 +156,39 @@
             geraId: function (idName) {
               return idName + Math.floor(Math.random() * 65536);
             },
-            getCoverLink: function (url) {
-              return 'https://inclusaodigitalnasescolas.com.br/api/link-preview?url='+url+'&token='+this.token;
+            getCoverLink: function (id, url) {
+              imgStorage = localStorage.getItem(id);
+              if(imgStorage == null){
+                fetch('https://inclusaodigitalnasescolas.com.br/api/link-preview?url='+url+'&token='+this.token)
+                    .then(response => response.json())
+                    .then(json => {
+                      if(json.img == null || typeof(json.img.length) == "undefined"){
+                        imgResponse = 'https://inclusaodigitalnasescolas.com.br/storage/img/nothuhmbpng.png';
+                      } else {
+                        imgResponse = json.img;
+                      }
+                      localStorage.setItem(id, imgResponse);
+                      // document.getElementById(id).src = imgResponse;
+                    })
+              } else {
+                document.getElementById(id).src = imgStorage;
+              }
+            },
+            getLink: function(links){
+              html = '';
+              arr = links.split(';')
+              arr.forEach(function(a){
+                if(a.trim() != ''){
+                  if(a.includes("play.google")){
+                    html += `<a href="`+a+`" target="_BLANK"><img width="32" src="img/play.png" /></a>&nbsp;&nbsp;`;
+                  } else if(a.includes("youtube.com")){
+                    html += `<a href="`+a+`" target="_BLANK"><img width="32" src="img/video.png" /></a>&nbsp;&nbsp;`;
+                  } else {
+                    html += `<a href="`+a+`" target="_BLANK"><img width="32" src="img/website.png" /></a>&nbsp;&nbsp;`;
+                  }
+                }
+              })
+              return html;
             }
         }
     });
