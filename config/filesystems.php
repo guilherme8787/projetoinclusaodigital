@@ -47,7 +47,7 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => '/var/www/projetoinclusaodigital/public/storage',
             'url' => '/storage',
             'visibility' => 'public',
             'throw' => false,
