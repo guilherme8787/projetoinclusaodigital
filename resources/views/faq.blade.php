@@ -12,7 +12,7 @@
 
 <div class="container p-4" id="app1">
 
-    <ul class="nav nav-tabs" style="position: relative">
+    <ul class="nav nav-tabs" style="position: relative; margin: 0 9px;">
         <li class="nav-item">
           <a class="nav-link active p-color" id="tab1" v-on:click="tabGeneretor('faq1')" href="#" style="font-weight: 500;">
             <i class="fa-solid fa-caret-right"></i> Tecnológico
@@ -43,7 +43,7 @@
             <div class="accordion" v-bind:id="'accordion' + faq1.id">
                 <div class="accordion-item">
                   <h2 class="accordion-header" v-bind:id="'heading' + faq1.id">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" v-bind:data-bs-target="'#collapse' + faq1.id" aria-expanded="false" v-bind:aria-controls="'#collapse' + faq1.id" style="color: white; background-color: rgb(247, 51, 88);">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" v-bind:data-bs-target="'#collapse' + faq1.id" aria-expanded="false" v-bind:aria-controls="'#collapse' + faq1.id" style="color: white; border-radius: 0;">
                       @{{ faq1.pergunta }}
                     </button>
                   </h2>
