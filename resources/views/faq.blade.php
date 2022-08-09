@@ -141,7 +141,6 @@
           buscaFaq0: function(searchValue) {
             const input = document.getElementById('buscafaq0');
             const trs = [...document.querySelectorAll(`#${this.activeTab} tbody tr`)];
-            console.log(this.activeTab + ' tbody tr')
 
             const search = input.value.toLowerCase();
             trs.forEach(el => {
