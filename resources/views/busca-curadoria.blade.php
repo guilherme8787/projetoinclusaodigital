@@ -11,9 +11,9 @@
 
 <div class="container p-4" id="app1">
 
-    <div class="row">
-        <div class="col-sm-12 col-md-4 col-lg-4 col-xs-4">
-          <a class="btn" style="width: 100%; margin-bottom: 5px; color: white; border-radius: 0; background-color: #f73358;">Ciclo</a>
+    <div class="row" style="justify-content: space-around;">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xs-6">
+          <a class="btn b-color" style="width: 100%; margin-bottom: 5px; color: white; border-radius: 0; font-weight: 700;">Ciclo</a>
           <div class="mb-3" style="height: 100px;overflow-y: scroll;">
               <div class="form-check" v-for="ciclo in ciclos">
                 <input v-on:click="queryMount('ciclo', ciclo.ciclo)" class="form-check-input" type="checkbox">
@@ -23,19 +23,8 @@
               </div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-4 col-lg-4 col-xs-4">
-          <a class="btn" style="width: 100%; margin-bottom: 5px; color: white; border-radius: 0; background-color: #4ea79b;">Categoria</a>
-          <div class="mb-3" style="height: 100px;overflow-y: scroll;">
-            <div class="form-check" v-for="categoria in categorias">
-              <input v-on:click="queryMount('categoria', categoria.categoria)" class="form-check-input" type="checkbox">
-              <label class="form-check-label" for="disabledFieldsetCheck">
-                @{{ categoria.categoria }}
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-4 col-lg-4 col-xs-4">
-          <a class="btn" style="width: 100%; margin-bottom: 5px; color: white; border-radius: 0; background-color: #14B0F5;">Disciplina</a>
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xs-6">
+          <a class="btn" style="width: 100%; margin-bottom: 5px; color: white; border-radius: 0; background-color: #3BF940; font-weight: 700;">Disciplina</a>
           <div class="mb-3" style="height: 100px;overflow-y: scroll;">
             <div class="form-check" v-for="disciplina in disciplinas">
               <input v-on:click="queryMount('disciplina', disciplina.disciplina)" class="form-check-input" type="checkbox">
@@ -50,6 +39,7 @@
     <div class="form__group field">
         <input v-on:change="buscaConteudo()" type="input" v-model="searchField" class="form__field" placeholder="Pesquise por palavras chave" name="name" id='name' required />
         <label for="name" class="form__label">Buscar</label>
+        <i class="fa-solid fa-magnifying-glass p-color"></i>
     </div>
 
     <br>

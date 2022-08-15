@@ -1,6 +1,8 @@
 @import "bootstrap";
 
-
+:root {
+  --p-color: #694AF8;
+}
 .form__group {
   position: relative;
   padding: 15px 0 0;
@@ -11,14 +13,14 @@
   font-family: inherit;
   width: 100%;
   border: 0;
-  border-bottom: 2px solid $gray;
+  border-bottom: 2px solid gray;
   outline: 0;
   font-size: 1.3rem;
-  color: $white;
+  color: white;
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;
-  border-bottom: 2px solid #f73358;
+  border-bottom: 2px solid var(--p-color);
 }
 .form__field:focus {
   padding-bottom: 6px;
@@ -31,7 +33,7 @@
   display: block;
   transition: 0.2s;
   font-size: 1rem;
-  color: #f73358;
+  color: var(--p-color);
   font-weight: 700;
 }
 
@@ -48,7 +50,7 @@
 }
 
 .progress {
-  background-color: #f73358;
+  background-color: var(--p-color);
   -webkit-animation: progressBar 3s ease-in-out;
   -webkit-animation-fill-mode:both; 
   -moz-animation: progressBar 3s ease-in-out;
@@ -68,4 +70,70 @@
 iframe {
   width: 100%;
   max-height: 500px;
+}
+.p-color {
+  color: var(--p-color);
+}
+.b-color {
+  background-color: var(--p-color);
+}
+.accordion-header button {
+  background-color: var(--p-color) !important;
+}
+.nav-tabs .nav-link {
+  background-color: #ADADAD;
+  color: #ffffff;
+  border-radius: 0;
+  border: none;
+  margin-bottom: 0;
+}
+.nav-tabs .nav-link.active {
+  background-color: var(--p-color);
+  color: #ffffff;
+  border-radius: 0;
+}
+.nav-tabs {
+  border-bottom: 2px solid var(--p-color);
+}
+.input-search {
+  position: absolute;
+  right: 0px;
+  bottom: 1px;
+  background-color: #E8E8E8;
+  border: none;
+  border-radius: 0;
+  padding: 5px 20px;
+  display: flex;
+  align-items: center;
+}
+.input-search input {
+  background-color: transparent;
+  border: none;
+}
+.input-search input:focus { 
+  outline: none !important;
+  border-color: #E8E8E8;
+  box-shadow: 0 0 10px #E8E8E8;
+  background-color: #E8E8E8;
+}
+.search-mobile {
+  display: none;
+}
+.form__group i.fa-magnifying-glass {
+  position: absolute;
+  font-size: 24;
+  right: 10px;
+  top: 20px;
+}
+
+@media (max-width: 767px) {
+  .logo {
+    max-width: 300px;
+  }
+  .search-mobile {
+    display: block;
+  }
+  .input-search {
+    display: none;
+  }
 }

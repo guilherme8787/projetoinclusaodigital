@@ -7,6 +7,7 @@
     <title>Projeto educação @yield('title')</title>
     <link href="css/app.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <script src="https://kit.fontawesome.com/72cfc6e7a4.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
