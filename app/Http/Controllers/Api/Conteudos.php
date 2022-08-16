@@ -13,6 +13,7 @@ class Conteudos extends Controller
 
         $conteudo = new Conteudo;
         $content = null;
+        $conteudo = $conteudo->query();
 
         $filtros = [
             'disciplina',
@@ -27,17 +28,30 @@ class Conteudos extends Controller
                 $filtering = 1;
                 if(is_array($request->get($filtro))){
                     foreach($request->get($filtro) as $filterIndex => $filterValue){
-                        $content[] = [$filtro, 'like', '%'.$filterValue.'%'];
+                        if ($filtro == 'descricao') {
+                            $conteudo->orWhere('titulo', 'like', '%'.$request->get($filterValue).'%');
+                            $conteudo->orWhere('hashtags', 'like', '%'.$request->get($filterValue).'%');
+                            $conteudo->orWhere('descricao', 'like', '%'.$request->get($filterValue).'%');
+                        } else {
+                            $conteudo->where($filtro, 'like', '%'.$filterValue.'%');
+                        }
                     }
                 } else {
-                    $content[] = [$filtro, 'like', '%'.$request->get($filtro).'%'];
+                    if ($filtro == 'descricao') {
+                        $conteudo->orWhere('titulo', 'like', '%'.trim($request->get($filtro)).'%');
+                        $conteudo->orWhere('hashtag', 'like', '%'.trim($request->get($filtro)).'%');
+                        $conteudo->orWhere('descricao', 'like', '%'.trim($request->get($filtro)).'%');
+                    } else {
+                        $conteudo->where($filtro, 'like', '%'.trim($request->get($filtro)).'%');
+                    }
                 }
             }
         }
+
         if($filtering == 0){
-            return response()->json($conteudo::all()->take(50));
+            return response()->json(Conteudo::all()->take(50));
         } else {
-            return response()->json($conteudo::where($content)->get());
+            return response()->json($conteudo->get());
         }
     }
     
