@@ -4,7 +4,7 @@
 
 @section('bucus-ativo', 'active')
 
-<div style="width: 100%; height: 430px; position: absolute; background: #fff8e2; z-index: -1;">
+<div style="width: 100%; height: 430px; position: absolute; background: #f0f0f0; z-index: -1;">
 </div>
 
 @section('content')
@@ -37,7 +37,7 @@
     </div>
 
     <div class="form__group field">
-        <input v-on:change="buscaConteudo()" type="input" v-model="searchField" class="form__field" placeholder="Pesquise por palavras chave" name="name" id='name' required />
+        <input v-on:change="buscaConteudo()" type="input" v-model="searchField" class="form__field text-dark" placeholder="Pesquise por palavras chave" name="name" id='name' required />
         <label for="name" class="form__label">Buscar</label>
         <i class="fa-solid fa-magnifying-glass p-color"></i>
     </div>

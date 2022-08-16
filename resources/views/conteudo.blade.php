@@ -4,7 +4,7 @@
 
 @section('bucus-ativo', 'active')
 
-<div style="width: 100%; height: 430px; position: absolute; background: #fdf9e2; z-index: -1;">
+<div style="width: 100%; height: 430px; position: absolute; background: #F0F0F0; z-index: -1;">
 </div>
 
 @section('content')
