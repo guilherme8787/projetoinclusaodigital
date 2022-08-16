@@ -29,20 +29,36 @@ class Conteudos extends Controller
                 if(is_array($request->get($filtro))){
                     foreach($request->get($filtro) as $filterIndex => $filterValue){
                         if ($filtro == 'descricao') {
-                            $conteudo->orWhere('titulo', 'like', '%'.$request->get($filterValue).'%');
-                            $conteudo->orWhere('hashtags', 'like', '%'.$request->get($filterValue).'%');
-                            $conteudo->orWhere('descricao', 'like', '%'.$request->get($filterValue).'%');
+                            $conteudo->orWhere('titulo', 'like', '% '.$request->get($filterValue).' %');
+                            $conteudo->orWhere('hashtags', 'like', '% '.$request->get($filterValue).' %');
+                            $conteudo->orWhere('descricao', 'like', '% '.$request->get($filterValue).' %');
+
+                            $conteudo->orWhere('titulo', 'like', ''.$request->get($filterValue).' %');
+                            $conteudo->orWhere('hashtags', 'like', ''.$request->get($filterValue).' %');
+                            $conteudo->orWhere('descricao', 'like', ''.$request->get($filterValue).' %');
+
+                            $conteudo->orWhere('titulo', 'like', '% '.$request->get($filterValue).'');
+                            $conteudo->orWhere('hashtags', 'like', '% '.$request->get($filterValue).'');
+                            $conteudo->orWhere('descricao', 'like', '% '.$request->get($filterValue).'');
                         } else {
                             $conteudo->where($filtro, 'like', '%'.$filterValue.'%');
                         }
                     }
                 } else {
                     if ($filtro == 'descricao') {
-                        $conteudo->orWhere('titulo', 'like', '%'.trim($request->get($filtro)).'%');
-                        $conteudo->orWhere('hashtag', 'like', '%'.trim($request->get($filtro)).'%');
-                        $conteudo->orWhere('descricao', 'like', '%'.trim($request->get($filtro)).'%');
+                        $conteudo->orWhere('titulo', 'like', '% '.$request->get($filtro).' %');
+                        $conteudo->orWhere('hashtag', 'like', '% '.$request->get($filtro).' %');
+                        $conteudo->orWhere('descricao', 'like', '% '.$request->get($filtro).' %');
+
+                        $conteudo->orWhere('titulo', 'like', '% '.$request->get($filtro).'');
+                        $conteudo->orWhere('hashtag', 'like', '% '.$request->get($filtro).'');
+                        $conteudo->orWhere('descricao', 'like', '% '.$request->get($filtro).'');
+                        
+                        $conteudo->orWhere('titulo', 'like', ''.$request->get($filtro).' %');
+                        $conteudo->orWhere('hashtag', 'like', ''.$request->get($filtro).' %');
+                        $conteudo->orWhere('descricao', 'like', ''.$request->get($filtro).' %');
                     } else {
-                        $conteudo->where($filtro, 'like', '%'.trim($request->get($filtro)).'%');
+                        $conteudo->where($filtro, 'like', '% '.$request->get($filtro).' %');
                     }
                 }
             }
