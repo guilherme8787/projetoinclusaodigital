@@ -6,43 +6,52 @@
         <div class="row mt-3">
             <div class="row text-center">
                 <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
-                    <img class="img-fluid" src="storage/img/inclusao-digital.png" />
+                    <img style="width: 180px" class="img-fluid" src="storage/img/nothuhmbpng.png" />
                 </div>
                 <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
-                    <h6 class="text-uppercase mb-4 p-color">
-                        Uma ação de <img class="img-fluid" src="/storage/img/instituto-mpumalanga.png" />
-                    </h6>
+                    <div class="img-with-text">
+                        <h6 class="mb-4 p-color" style="font-size: 14px; font-weight: 700;">
+                            Uma ação do: 
+                        </h6>
+                        <img class="img-fluid height-img" src="/storage/img/instituto-mpumalanga.png" />
+                    </div>
                 </div>
                 <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
-                    <h6 class="text-uppercase mb-4 p-color">
-                        Com a gestão do <img class="img-fluid" src="/storage/img/instituto-edp.png" />
-                    </h6>
+                    <div class="img-with-text">
+                        <h6 class="mb-4 p-color" style="font-size: 14px; font-weight: 700;">
+                            Com apoio do: 
+                        </h6>
+                        <img style="width: 180px" class="img-fluid" src="/storage/img/instituto-edp.png" />
+                    </div>
                 </div>
             </div>
-            <div class="col text-center p-color">Com o Patrocínio de:</div>
-            <div class="row text-center">
-                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-3">
-                    <img class="img-fluid" src="/storage/img/edp.png" />
+            <div class="col text-center p-color mb-5 mt-5" style="font-size: 14px; font-weight: 700;">Com o Patrocínio de:</div>
+            <div class="row text-center mb-5">
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-3">
+                    <img style="width: 180px" class="img-fluid" src="/storage/img/edp.png" />
                 </div>
-                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-3">
-                    <img class="img-fluid" src="/storage/img/edp-renovaveis.png" />
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-3">
+                    <img style="width: 180px" class="img-fluid" src="/storage/img/edp-renovaveis.png" />
                 </div>
-                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-3">
-                    <img class="img-fluid" src="/storage/img/cachoeira-energia.png" />
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-3">
+                    <img style="width: 180px" class="img-fluid" src="/storage/img/alianca.png" />
                 </div>
-                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-3">
-                    <img class="img-fluid" src="/storage/img/sao-miguel.png" />
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-3">
+                    <img class="img-fluid height-img" src="/storage/img/investco.png" />
+                </div>
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-3">
+                    <img style="width: 180px" class="img-fluid" src="/storage/img/enerpeixe.png" />
                 </div>
             </div>
             <div class="row text-center">
                 <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
-                    <img class="img-fluid" src="/storage/img/jari-energia.png" />
+                    <img style="width: 180px" class="img-fluid" src="/storage/img/jari-energia.png" />
                 </div>
                 <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
-                    <img class="img-fluid" src="/storage/img/investco.png" />
+                    <img style="width: 180px" class="img-fluid" src="/storage/img/cachoeira-energia.png" />
                 </div>
                 <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
-                    <img class="img-fluid" src="/storage/img/enerpeixe.png" />
+                    <img style="width: 180px" class="img-fluid" src="/storage/img/sao-miguel.png" />
                 </div>
             </div>
         </div>

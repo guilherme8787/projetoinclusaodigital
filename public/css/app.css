@@ -11401,6 +11401,14 @@ iframe {
   right: 10px;
   top: 20px;
 }
+.img-with-text {
+  display: flex;
+  justify-content: space-evenly; 
+  align-items: end;
+}
+.height-img {
+  height: 90px;
+}
 
 @media (max-width: 767px) {
   .logo {
@@ -11411,5 +11419,21 @@ iframe {
   }
   .input-search {
     display: none;
+  }
+  .img-with-text {
+    display: block;
+    align-items: inherit;
+  }
+  .col-md-2.col-lg-2.col-xl-2.mx-auto.mb-3, .col-md-4.col-lg-4.col-xl-4.mx-auto.mb-4 {
+    margin-bottom: 30px !important;
+  }
+}
+@media (max-width: 1200px) {
+  .img-with-text {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .height-img {
+    height: auto;
   }
 }
